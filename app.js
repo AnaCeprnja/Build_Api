@@ -1,22 +1,23 @@
+require('dotenv').config()
+
+
+
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-const apiRoute = require('./routes/api');
-const bodyParser = require('body-parser')
-require('dotenv/config');
 
-app.use(bodyParser.json());
+//connect us to the db
+mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true })
+const db = mongoose.connection
+db.on('error', (error) => console.error(error))
+db.once('open', () => console.log('you are connected to the db'))
 
-app.use('/api', apiRoute);
-
-app.get('/', (req, res) => {
-    res.send('Hello');
-});
-
+app.use(express.json())
+const quotesRouter = require('./routes/quotes')
+app.use('/quotes', quotesRouter)
 
 
 
-mongoose.connect(process.env.DB_HIDE, { useNewUrlParser: true }, () =>
-    console.log('dbconnect'));
 
-app.listen(3000);
+
+app.listen(3000, () => console.log('You are listening to port 3000'))
