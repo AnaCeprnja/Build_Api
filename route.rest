@@ -1,5 +1,16 @@
-GET http://localhost:3000/quotes
+GET http://localhost:3000/localhost:3000/quotes
 
 ###
 
-GET http://localhost:3000/quotes/2
+GET http://localhost:3000/localhost:3000/quotes/2
+
+
+###
+
+POST http://localhost:3000/quotes HTTP/1.1
+Content-Type: application/json
+
+{
+   "qquote":
+   "saidBy":
+}
